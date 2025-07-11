@@ -91,3 +91,4 @@ plt.show()
 # ====================================
 print(f"Fitted A for LTP: {A_ltp_fit:.4f}")
 print(f"Fitted A for LTD: {A_ltd_fit:.4f}")
+# fin
