@@ -10,15 +10,12 @@ from scipy.optimize import curve_fit
 pulses_LTP = np.array([
     # Fill with pulse numbers for potentiation (e.g., [1, 2, 3, ..., N])
 ])
-
 g_LTP = np.array([
     # Fill with conductance values corresponding to pulses_LTP
 ])
-
 pulses_LTD = np.array([
     # Fill with pulse numbers for depression (e.g., [1, 2, 3, ..., N])
 ])
-
 g_LTD = np.array([
     # Fill with conductance values corresponding to pulses_LTD
 ])
@@ -31,7 +28,6 @@ P_max = None  # maximum number of pulses used in fitting
 # ====================================
 # 2. Define LTP and LTD Model Equations
 # ====================================
-
 # LTP Model: G(p) = B * (1 - exp(-P/A_LTP)) + G_min
 def g_ltp_model(P, A_ltp):
     B = (G_max - G_min) / (1 - np.exp(-P_max / A_ltp))
@@ -66,7 +62,7 @@ A_ltd_fit = popt_ltd[0]
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
 plt.scatter(pulses_LTP, g_LTP, label="LTP Data", color='blue')
-plt.plot(pulses_LTP, g_ltp_model(pulses_LTP, A_ltp_fit), label=f"Fitted LTP\nA = {A_ltp_fit:.4f}", color='red')
+plt.plot(pulses_LTP, g_ltp_model(pulses_LTP, A_ltp_fit), label=f"Fitted LTP\nA = {A_ltp_fit:.4f}", color='blue')
 plt.xlabel("Pulse Number")
 plt.ylabel("Conductance")
 plt.title("LTP Fit")
@@ -76,7 +72,7 @@ plt.legend()
 # Plot LTD
 plt.subplot(1, 2, 2)
 plt.scatter(pulses_LTD, g_LTD, label="LTD Data", color='green')
-plt.plot(pulses_LTD, g_ltd_model(pulses_LTD, A_ltd_fit), label=f"Fitted LTD\nA = {A_ltd_fit:.4f}", color='orange')
+plt.plot(pulses_LTD, g_ltd_model(pulses_LTD, A_ltd_fit), label=f"Fitted LTD\nA = {A_ltd_fit:.4f}", color='red')
 plt.xlabel("Pulse Number")
 plt.ylabel("Conductance")
 plt.title("LTD Fit")
@@ -91,4 +87,10 @@ plt.show()
 # ====================================
 print(f"Fitted A for LTP: {A_ltp_fit:.4f}")
 print(f"Fitted A for LTD: {A_ltd_fit:.4f}")
+# fin
+#========================
+# Find initial guess 
+#========================
+A_ltp_guess = (max(pulses_LTP) - min(pulses_LTP)) / 2
+A_ltd_guess = (max(pulses_LTD) - min(pulses_LTD)) / 2
 # fin
